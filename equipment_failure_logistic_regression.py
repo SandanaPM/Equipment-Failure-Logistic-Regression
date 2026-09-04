@@ -18,9 +18,9 @@ from sklearn.metrics import (
     roc_curve
 )
 
-# ============================================================
+
 # 1. LOAD DATASET
-# ============================================================
+
 
 DATA_FILE = "dataset_06_equipment_failure_warning.csv"
 
@@ -46,9 +46,9 @@ print("\nSummary statistics:")
 print(df.describe())
 
 
-# ============================================================
+
 # 2. DATA QUALITY CHECK
-# ============================================================
+
 
 print("\n" + "=" * 60)
 print("DATA QUALITY CHECK")
@@ -69,10 +69,8 @@ print(df["target"].value_counts().sort_index())
 print("\nTarget percentages:")
 print(df["target"].value_counts(normalize=True).sort_index() * 100)
 
-
-# ============================================================
 # 3. FEATURE INFORMATION
-# ============================================================
+
 
 features = [
     "temperature",
@@ -89,9 +87,8 @@ X = df[features].copy()
 y = df[target].astype(int)
 
 
-# ============================================================
 # 4. FEATURE RANGE CHECK
-# ============================================================
+
 
 print("\n" + "=" * 60)
 print("FEATURE RANGES")
@@ -105,9 +102,8 @@ for feature in features:
     )
 
 
-# ============================================================
 # 5. TARGET DISTRIBUTION
-# ============================================================
+
 
 fig = plt.figure(figsize=(8, 6))
 
@@ -143,9 +139,8 @@ plt.close(fig)
 print("\nSaved: 01_target_distribution.png")
 
 
-# ============================================================
 # 6. FEATURE DISTRIBUTIONS
-# ============================================================
+
 
 fig = plt.figure(figsize=(14, 9))
 
@@ -182,9 +177,8 @@ plt.close(fig)
 print("Saved: 02_feature_distributions.png")
 
 
-# ============================================================
 # 7. CORRELATION MATRIX
-# ============================================================
+
 
 correlation_data = df[features + [target]]
 correlation_matrix = correlation_data.corr()
@@ -244,9 +238,8 @@ plt.close(fig)
 print("Saved: 03_correlation_matrix.png")
 
 
-# ============================================================
 # 8. TRAIN TEST SPLIT
-# ============================================================
+
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -264,9 +257,8 @@ print("Training samples:", len(X_train))
 print("Testing samples:", len(X_test))
 
 
-# ============================================================
 # 9. BASELINE MODEL
-# ============================================================
+
 
 baseline_model = DummyClassifier(
     strategy="most_frequent"
@@ -288,9 +280,9 @@ print("\nBaseline Accuracy:")
 print(f"{baseline_accuracy:.6f}")
 
 
-# ============================================================
+
 # 10. LOGISTIC REGRESSION PIPELINE
-# ============================================================
+
 
 model = Pipeline(
     steps=[
@@ -308,10 +300,8 @@ model = Pipeline(
     ]
 )
 
-
-# ============================================================
 # 11. TRAIN MODEL
-# ============================================================
+
 
 print("\n" + "=" * 60)
 print("TRAINING LOGISTIC REGRESSION MODEL")
@@ -325,18 +315,17 @@ model.fit(
 print("Model training completed successfully.")
 
 
-# ============================================================
 # 12. PREDICTIONS
-# ============================================================
+
 
 y_pred = model.predict(X_test)
 
 y_probability = model.predict_proba(X_test)[:, 1]
 
 
-# ============================================================
+
 # 13. MODEL EVALUATION
-# ============================================================
+
 
 accuracy = accuracy_score(
     y_test,
@@ -391,11 +380,10 @@ print(f"F1-Score  : {f1 * 100:.2f}%")
 print(f"ROC-AUC   : {roc_auc * 100:.2f}%")
 
 
-# ============================================================
 # 14. CLASSIFICATION REPORT
-# ============================================================
 
 print("\n" + "=" * 60)
+
 print("CLASSIFICATION REPORT")
 print("=" * 60)
 
@@ -412,9 +400,8 @@ print(
 )
 
 
-# ============================================================
 # 15. CONFUSION MATRIX
-# ============================================================
+
 
 fig = plt.figure(figsize=(8, 7))
 
@@ -487,9 +474,9 @@ plt.close(fig)
 print("\nSaved: 04_confusion_matrix.png")
 
 
-# ============================================================
+
 # 16. ROC CURVE
-# ============================================================
+
 
 fpr, tpr, thresholds = roc_curve(
     y_test,
@@ -550,9 +537,9 @@ plt.close(fig)
 print("Saved: 05_roc_curve.png")
 
 
-# ============================================================
+
 # 17. LOGISTIC REGRESSION COEFFICIENTS
-# ============================================================
+
 
 logistic_model = model.named_steps[
     "logistic_regression"
@@ -584,9 +571,8 @@ print(
 )
 
 
-# ============================================================
 # 18. COEFFICIENT PLOT
-# ============================================================
+
 
 fig = plt.figure(figsize=(10, 7))
 
@@ -637,9 +623,9 @@ plt.close(fig)
 print("\nSaved: 06_coefficients.png")
 
 
-# ============================================================
+
 # 19. SAVE COEFFICIENTS
-# ============================================================
+
 
 coefficient_df.to_csv(
     "logistic_coefficients.csv",
@@ -649,9 +635,8 @@ coefficient_df.to_csv(
 print("Saved: logistic_coefficients.csv")
 
 
-# ============================================================
 # 20. SAVE PREDICTIONS
-# ============================================================
+
 
 predictions_df = X_test.copy()
 
@@ -669,9 +654,8 @@ predictions_df.to_csv(
 print("Saved: equipment_failure_predictions.csv")
 
 
-# ============================================================
 # 21. SAVE CLEANED DATASET
-# ============================================================
+
 
 cleaned_df = df[
     features + [target]
@@ -684,10 +668,7 @@ cleaned_df.to_csv(
 
 print("Saved: equipment_failure_cleaned.csv")
 
-
-# ============================================================
-# 22. SAVE MODEL RESULTS
-# ============================================================
+ #22. SAVE MODEL RESULTS
 
 with open(
     "model_results.txt",
@@ -758,9 +739,8 @@ with open(
 print("Saved: model_results.txt")
 
 
-# ============================================================
+
 # 23. FINAL MESSAGE
-# ============================================================
 
 print("\n" + "=" * 60)
 print("PROJECT COMPLETED SUCCESSFULLY")
