@@ -1,0 +1,25 @@
+EQUIPMENT FAILURE WARNING - LOGISTIC REGRESSION
+============================================================
+
+Baseline Accuracy: 0.500000
+
+Logistic Regression Performance
+Accuracy: 0.715000
+Precision: 0.741573
+Recall: 0.660000
+F1-Score: 0.698413
+ROC-AUC: 0.778800
+
+Confusion Matrix:
+[[77 23]
+ [34 66]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+ Non-Failure       0.69      0.77      0.73       100
+Failure Risk       0.74      0.66      0.70       100
+
+    accuracy                           0.71       200
+   macro avg       0.72      0.72      0.71       200
+weighted avg       0.72      0.71      0.71       200
